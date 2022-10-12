@@ -23,8 +23,28 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(matrix) {
-  console.log('hello');
+ function minesweeper(matrix) {
+  let resultMatrix = [];
+  for (let rows = 0; rows < matrix.length; rows++) {
+    let row = [];
+    for (let cols = 0; cols < matrix[rows].length; cols++) {
+      let current = 0;
+      for (let r = -1; r < 2; r ++) {
+        for (let c = -1; c < 2; c++) {
+          if (r !== 0 || c !== 0) {
+            if ( (rows + r) >= 0 && (rows + r) <= matrix.length - 1 
+                && (cols + c) >= 0 && (cols + c) <= matrix[rows].length -1) 
+              {
+                current += Number(matrix[rows+r][cols+c]);
+            }
+          }
+        }
+      }
+      row.push(current);
+    }
+    resultMatrix.push(row);
+  }
+  return resultMatrix;
 }
 
 module.exports = {
