@@ -13,15 +13,16 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
  function sortByHeight(arr) {
   let result = [];
-  let arrSorted = arr
-              .filter(i => i !== -1)
-              .sort( (a, b) => a - b);
+  let arrSorted = arr.filter(i => i !== -1).sort( (a, b) => a - b);
+
+  let j = 0;
   for (let i = 0; i < arr.length; i++) {
-      if (arr[i] === -1) {
-          result.push(-1);
-      } else {
-          result.push(arrSorted.shift());
-      }
+    if (arr[i] === -1) {
+      result.push(-1);
+    } else {
+      result.push(arrSorted[j]);
+      j++;
+    }
   }
   return result;
 } 
