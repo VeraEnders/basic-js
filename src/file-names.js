@@ -16,17 +16,21 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function renameFiles(names) {
-  let result = [];
+  let objCountNames = { };
+
   for (let i = 0; i < names.length; i++) {
-    if (result.indexOf(names[i]) === -1) {
-        result.push(names[i]);
-    } else if (result.indexOf(`${names[i]}(1)`) !== -1) {
-        result.push(`${names[i]}(2)`);
+    let changedName;
+    let currName = names[i];
+    if (objCountNames.hasOwnProperty(currName)) {
+      changedName = `${currName}(${objCountNames[currName]})`
+      names[i] = changedName;
+      objCountNames[currName]++;
+      objCountNames[changedName] = 1;
     } else {
-        result.push(`${names[i]}(1)`)
+      objCountNames[currName] = 1;
     }
   }
-  return result;
+  return names;
 }
 
 module.exports = {
