@@ -20,22 +20,23 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
  function prepareKeyword(str, key) {
-  let alphabetLatin = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let newKey = '';
-  let spaces = 0;
+  const re = /[A-Z]/gi;
+  
   while (key.length < str.length) {
     key += key;
   }
   str = str.toUpperCase();
+  let newKey = '';
+  let spaces = 0;
   for (let i = 0; i < str.length; i++) {
-      if (alphabetLatin.indexOf(str[i]) === -1) {
-          newKey += str[i];
-          spaces++;
-      } else {
-          newKey += key[i - spaces];
-      }
+    if (str[i].match(re)) {
+      newKey += key[i - spaces].toUpperCase();
+    } else {
+      newKey += str[i];
+      spaces++;
+    }
   }
-  return newKey.toUpperCase();
+  return newKey;
 }
 
 function reverseStr(str) {
